@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		.hide{display:none;}
+
+	</style>
+</head>
+<body>
+
+<br><br><br><br><br><br><br>
+	<select name="first">
+<!-- 		<option>-请选择-</option> -->
+<!-- 		<option>模板设置</option> -->
+<!-- 		<option>一手楼盘</option> -->
+	</select>
+	<select name="second" class="hide"></select>
+	<script>
+		menus=[
+			{
+				title:"模板设置",
+				items:[
+					{title:"房源海报",url:'/posterlist'},
+					{title:"问候模板",url:'/posterlist'},
+					{title:"节日模板",url:'/posterlist'},
+					{title:"首页Banner",url:'/posterlist'},
+					{title:"朋友圈大字报",url:'/posterlist'},
+					{title:"幽默图",url:'/posterlist'}
+				]
+			},
+			{
+				title:"一手楼盘",
+				items:[
+					{title:"一手房源",url:'/newhouse'}
+				]
+			}
+		];
+		var first=document.getElementsByName("first")[0];
+		var second=document.getElementsByName("second")[0];
+		var frag=document.createDocumentFragment();
+		frag.appendChild(new Option("-请选择-"));
+		for(var item of menus){
+			frag.appendChild(new Option(item.title));
+		}
+		first.appendChild(frag);
+		first.onchange=function(){
+			var i=this.selectedIndex;
+			if(i>0){
+				i--;
+				var seconds=menus[i].items;
+				var frag=document.createDocumentFragment();
+				for(var item of seconds){
+					frag.appendChild(new Option(item.title));
+				}
+				second.innerHTML="";
+				second.appendChild(frag);
+				second.className="";
+			}else{
+				second.className="hide";
+			}
+		}
+	</script>
+</body>
+</html>
